@@ -22,7 +22,7 @@ public class StartUp {
         this.stockRepository = stockRepository;
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) {
         SpringApplication.run(StartUp.class, args);
     }
 }

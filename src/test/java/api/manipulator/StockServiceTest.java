@@ -170,7 +170,7 @@ public class StockServiceTest {
     }
 
     @Test
-    public void testGet() {
+    public void testGetOne() {
         final Long id = 123L;
         final String name = "a stock name";
         final Double price = 20.34;

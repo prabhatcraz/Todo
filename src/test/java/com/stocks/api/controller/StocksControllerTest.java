@@ -82,19 +82,6 @@ public class StocksControllerTest {
     }
 
     @Test
-    public void testPutVerb() throws Exception {
-        final Double price = 1.23;
-
-        final String requestBody = new ObjectMapper().writeValueAsString(price);
-        mockMvc.perform(put("/api/stocks/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
-                .andExpect(status().is(405))
-        ;
-        verifyNoMoreInteractions(stockService);
-    }
-
-    @Test
     public void testPostStock() throws Exception {
         final Stock stock = new Stock().withPrice(1.23);
         when(stockService.create(any())).thenReturn(stock);
@@ -189,7 +176,7 @@ public class StocksControllerTest {
         final String errorMessage = "a post error message";
 
         final String requestBody = new ObjectMapper().writeValueAsString(stock);
-        mockMvc.perform(post("/api/stocks/1")
+        mockMvc.perform(put("/api/stocks/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().is(200))
@@ -228,7 +215,7 @@ public class StocksControllerTest {
 
         final String requestBody = new ObjectMapper().writeValueAsString(new Stock().withPrice(1.23D).withVersion(3L));
 
-        mockMvc.perform(post("/api/stocks/1")
+        mockMvc.perform(put("/api/stocks/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().is(404))

@@ -25,7 +25,7 @@ public class StocksController {
 
     private final StockService stockService;
 
-    @Autowired
+
     public StocksController(final StockService stockService) {
         this.stockService = stockService;
     }
@@ -35,7 +35,7 @@ public class StocksController {
         return stockService.get(stockId);
     }
 
-    @RequestMapping(value = "/stocks/{stockId}", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/stocks/{stockId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public void update(@PathVariable final Long stockId, @RequestBody Stock stock) {
         stockService.updatePrice(stockId, stock.getPrice(), stock.getVersion());
     }
