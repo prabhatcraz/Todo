@@ -1,4 +1,4 @@
-package com.stocks.api.model;
+package com.todos.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

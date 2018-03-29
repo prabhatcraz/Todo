@@ -1,13 +1,12 @@
-package com.stocks.api.controller;
+package com.todos.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stocks.api.dal.StockRepository;
-import com.stocks.api.exceptions.ResourceNotFoundException;
-import com.stocks.api.exceptions.StockAlreadyExistsException;
-import com.stocks.api.manipulator.StockService;
-import com.stocks.api.model.ErrorResponse;
-import com.stocks.api.model.Stock;
+import com.todos.dal.TodoRepository;
+import com.todos.exceptions.ResourceNotFoundException;
+import com.todos.exceptions.StockAlreadyExistsException;
+import com.todos.manipulator.TodoService;
+import com.todos.model.ErrorResponse;
+import com.todos.model.Todo;
 import org.hibernate.exception.ConstraintViolationException;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -15,13 +14,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -38,7 +34,6 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,15 +48,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class StocksControllerTest {
     private MockMvc mockMvc;
 
-    @MockBean private StockService stockService;
-    @MockBean private StockRepository stockRepository;
+    @MockBean private TodoService todoService;
+    @MockBean private TodoRepository todoRepository;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new StocksController(stockService))
+                .standaloneSetup(new StocksController(todoService))
                 .setControllerAdvice(new ApiErrorHandler())
                 .build();
     }
@@ -83,10 +78,10 @@ public class StocksControllerTest {
 
     @Test
     public void testPostStock() throws Exception {
-        final Stock stock = new Stock().withPrice(1.23);
-        when(stockService.create(any())).thenReturn(stock);
+        final Todo todo = new Todo().withPrice(1.23);
+        when(todoService.create(any())).thenReturn(todo);
 
-        final String requestBody = new ObjectMapper().writeValueAsString(stock);
+        final String requestBody = new ObjectMapper().writeValueAsString(todo);
         mockMvc.perform(post("/api/stocks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
@@ -94,12 +89,12 @@ public class StocksControllerTest {
         ;
 
 
-        verify(stockService, times(1)).create(any());
+        verify(todoService, times(1)).create(any());
     }
 
     @Test
     public void testGetAll() throws Exception {
-        given(stockService.get(any(int.class))).willReturn(new JSONObject());
+        given(todoService.get(any(int.class))).willReturn(new JSONObject());
 
         mockMvc.perform(get("/api/stocks"))
                 .andExpect(status().is(200));
@@ -115,7 +110,7 @@ public class StocksControllerTest {
     public void testGetWithException() throws Exception {
         final String errorMessage = "Something is wrong";
 
-        doThrow(new RuntimeException(errorMessage)).when(stockService).get(any());
+        doThrow(new RuntimeException(errorMessage)).when(todoService).get(any());
 
         mockMvc.perform(get("/api/stocks/1"))
                 .andExpect(status().is(500))
@@ -132,7 +127,7 @@ public class StocksControllerTest {
     public void testGetAllWithException() throws Exception {
         final String errorMessage = "Something is wrong";
 
-        doThrow(new RuntimeException(errorMessage)).when(stockService).get(anyInt());
+        doThrow(new RuntimeException(errorMessage)).when(todoService).get(anyInt());
 
         mockMvc.perform(get("/api/stocks"))
                 .andExpect(status().is(500))
@@ -147,13 +142,13 @@ public class StocksControllerTest {
 
     @Test
     public void testPostStockWithException() throws Exception {
-        final Stock stock = new Stock().withPrice(2.3).withSymbol("a symbol").withName("a name");
+        final Todo todo = new Todo().withPrice(2.3).withSymbol("a symbol").withName("a name");
 
         final String errorMessage = "Something is wrong";
 
-        given(stockService.create(any())).willThrow(new RuntimeException(errorMessage));
+        given(todoService.create(any())).willThrow(new RuntimeException(errorMessage));
 
-        final String requestBody = new ObjectMapper().writeValueAsString(stock);
+        final String requestBody = new ObjectMapper().writeValueAsString(todo);
         mockMvc.perform(post("/api/stocks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
@@ -166,34 +161,34 @@ public class StocksControllerTest {
                 })
         ;
 
-        verify(stockService, times(1)).create(any());
+        verify(todoService, times(1)).create(any());
     }
 
     @Test
     public void testPostToUpdate() throws Exception {
-        final Stock stock = new Stock().withPrice(1.23).withVersion(3L);
+        final Todo todo = new Todo().withPrice(1.23).withVersion(3L);
 
         final String errorMessage = "a post error message";
 
-        final String requestBody = new ObjectMapper().writeValueAsString(stock);
+        final String requestBody = new ObjectMapper().writeValueAsString(todo);
         mockMvc.perform(put("/api/stocks/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().is(200))
         ;
 
-        Mockito.verify(stockService, times(1)).updatePrice(1l, 1.23d, 3l);
+        Mockito.verify(todoService, times(1)).updatePrice(1l, 1.23d, 3l);
     }
 
     @Test
     public void testCreatingExistingStock() throws Exception {
         // GIVEN
         final String errorMessage= "It already exists";
-        final Stock stock = new Stock().withPrice(2.3).withSymbol("a symbol").withName("a name");
+        final Todo todo = new Todo().withPrice(2.3).withSymbol("a symbol").withName("a name");
 
-        when(stockService.create(any(Stock.class))).thenThrow(new StockAlreadyExistsException(errorMessage));
+        when(todoService.create(any(Todo.class))).thenThrow(new StockAlreadyExistsException(errorMessage));
 
-        final String requestBody = new ObjectMapper().writeValueAsString(stock);
+        final String requestBody = new ObjectMapper().writeValueAsString(todo);
 
         mockMvc.perform(post("/api/stocks")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -211,9 +206,9 @@ public class StocksControllerTest {
     @Test
     public void testUpdateNonExistingStock() throws Exception {
         final String errorMessage= "It does not exists";
-        doThrow(new ResourceNotFoundException(errorMessage)).when(stockService).updatePrice(anyLong(), anyDouble(), anyLong());
+        doThrow(new ResourceNotFoundException(errorMessage)).when(todoService).updatePrice(anyLong(), anyDouble(), anyLong());
 
-        final String requestBody = new ObjectMapper().writeValueAsString(new Stock().withPrice(1.23D).withVersion(3L));
+        final String requestBody = new ObjectMapper().writeValueAsString(new Todo().withPrice(1.23D).withVersion(3L));
 
         mockMvc.perform(put("/api/stocks/1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -230,7 +225,7 @@ public class StocksControllerTest {
 
     @Test
     public void testGetAllWithNegativePageNumber() throws Exception {
-        given(stockService.get(any(int.class))).willReturn(new JSONObject());
+        given(todoService.get(any(int.class))).willReturn(new JSONObject());
 
         mockMvc.perform(get("/api/stocks?page=-2"))
                 .andExpect(status().is(500))
@@ -246,13 +241,13 @@ public class StocksControllerTest {
     @Test
     public void testDataIntegrityException() throws Exception {
         final String errorMessage= "Data integrity voilated";
-        final Stock stock = new Stock().withPrice(2.3).withSymbol("a symbol").withName("a name");
+        final Todo todo = new Todo().withPrice(2.3).withSymbol("a symbol").withName("a name");
 
         final SQLException exception = new SQLException("", "");
         final ConstraintViolationException constraintViolationException = new ConstraintViolationException("Primary key voilation.", exception , "Primary key voilation");
-        given(stockService.create(any(Stock.class))).willThrow(new DataIntegrityViolationException(errorMessage, constraintViolationException));
+        given(todoService.create(any(Todo.class))).willThrow(new DataIntegrityViolationException(errorMessage, constraintViolationException));
 
-        final String requestBody = new ObjectMapper().writeValueAsString(stock);
+        final String requestBody = new ObjectMapper().writeValueAsString(todo);
 
         mockMvc.perform(post("/api/stocks")
                 .contentType(MediaType.APPLICATION_JSON)

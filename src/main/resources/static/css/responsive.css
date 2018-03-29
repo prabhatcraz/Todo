@@ -1,0 +1,36 @@
+@media screen and (min-width: 1600px) {
+    .card {
+        width: 22%;
+        float: left;
+        margin-left: 15px;
+    }
+}
+
+/* For Laptop */
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+    .card {
+        width: 28%;
+        float: left;
+        margin-left: 15px;
+    }
+}
+
+
+/* For Tablets */
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+    .card {
+        width: 40%;
+        float: left;
+        margin-left: 25px;
+    }
+}
+
+/* For Mobile */
+@media screen and (max-width: 800px) {
+    .card {
+        width: 90%;
+        float: left;
+        margin-left: 25px;
+        min-width: 385px;
+    }
+}

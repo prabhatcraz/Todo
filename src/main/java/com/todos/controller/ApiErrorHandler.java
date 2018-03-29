@@ -1,11 +1,9 @@
-package com.stocks.api.controller;
+package com.todos.controller;
 
-import com.stocks.api.exceptions.ResourceNotFoundException;
-import com.stocks.api.exceptions.StockAlreadyExistsException;
-import com.stocks.api.model.ErrorResponse;
-import org.hibernate.PropertyValueException;
+import com.todos.exceptions.ResourceNotFoundException;
+import com.todos.exceptions.StockAlreadyExistsException;
+import com.todos.model.ErrorResponse;
 import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.exception.DataException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.sql.SQLException;

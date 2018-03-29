@@ -1,10 +1,10 @@
-package com.stocks.api.manipulator;
+package com.todos.manipulator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Provides dependencies for {@link StockService}
+ * Provides dependencies for {@link TodoService}
  */
 @Configuration
 public class StockServiceConfig {

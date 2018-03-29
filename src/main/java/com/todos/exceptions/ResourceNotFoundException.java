@@ -1,4 +1,4 @@
-package com.stocks.api.exceptions;
+package com.todos.exceptions;
 
 /**
  * To be thrown when a resource is not found.

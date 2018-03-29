@@ -1,9 +1,10 @@
-package com.stocks.api.model;
+package com.todos.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
+import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,7 +25,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 
 /**
- * A model to represent a Stock object.
+ * A model to represent a Todo object.
  */
 @Wither
 @Data
@@ -33,25 +34,28 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
-@Table(name = "stocks")
+@Table(name = "todos")
 @DynamicUpdate
-public class Stock {
-    /**
-     * Uniquely Identifies id of a stock
-     */
+public class Todo {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "symbol", unique = true, nullable = false)
-    private String symbol;
+    @Column(name = "title", nullable = false)
+    private String title;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "price", nullable = false)
-    private Double price;
+    @Column(name = "userId", nullable = false)
+    private String userId;
+
+    @Column(name = "dueDate")
+    private Date dueDate;
+
+    @Column(name = "state")
+    private State state;
 
     @LastModifiedDate
     @Temporal(TIMESTAMP)
@@ -62,8 +66,4 @@ public class Stock {
     @Column(name="creationDate", nullable = false, updatable=false)
     @Temporal(TIMESTAMP)
     private Date creationDate;
-
-    @Column(name = "version", nullable = false)
-    private Long version;
-
 }

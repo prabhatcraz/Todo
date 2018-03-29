@@ -1,19 +1,141 @@
-#stockInfoTable {
-    width: 800px;
+body {
+    /*color: #eeeeee;*/
+    /*     background-color: #DDDDDD; */
+    font-family: "Courier New", Courier, monospace;
+}
+
+.grey {}
+
+.shadow {
+    text-shadow: #999 2px 1px 1px;
+}
+
+.cardBody {
+    width: 100%;
+}
+
+h1 {
+    margin: 0;
+    color: #333333;
+}
+
+h3 {
+    margin: 0;
+    color: #333333;
+}
+
+.header {
+    display: inline-block;
+    font-size: 40px;
+}
+
+.taskInputWrapper {
+    display: inline-block;
+}
+
+.close {
+    font-size: 12px;
+    border-radius: 0px;
+    border-color: black;
+}
+
+.centre {
     margin-left: auto;
     margin-right: auto;
 }
 
-.leftFloat {
-    float:left;
+.box-header {
+    padding: 5px;
+    /*border-style: dashed;*/
+    text-align: center;
+    border: dashed 1px black;
 }
 
-.rightFloat {
-    float: right;
+.striked {
+    text-decoration: line-through;
 }
 
-#navigationButtonWrapper {
-    width:800px;
+input[type=checkbox] {
+    /*visibility: hidden;/*/
+}
+
+#activeTodos {
+    /*width: 45%;*/
+    /*float: left;*/
+    /*margin-right: 10px;*/
+}
+
+.box {
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .65);
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .65);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .65);
+    /*width: 100%;*/
+}
+
+.taskDate {
+    font-size: 10px;
+}
+
+.checked-border {
+    border: ;
+}
+
+#showHistory {
+    height: 28px;
+}
+
+.evenRow {
+    background-color: #EEEEEE;
+}
+
+.card-header {
+
+    /*margin*/
+}
+
+.border_bottom {
+    background-color: #EEEEEE;
+}
+
+.border_top {
+    border-top: 1pt solid #EEEEEE;
+    background-color: #EEEEEE;
+}
+
+#backlogs {
+    /*width: 40%;*/
+    /*float: right;*/
+}
+
+#taskInput {
+    margin: 10px;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.description {
+    /*width: 100%;*/
+    /*display: inline-block;*/
+}
+
+input[type='text'] {
+    display: block;
+    border-radius: 5px;
+    /*border-color: red;*/
+    height: 35px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+    -webkit-box-shadow: inset 0 0 20px #000;
+    -moz-box-shadow: inset 0 0 20px #000;
+    box-shadow: inset 0 0 20px #000;
+
+    background: transparent;
+    outline: none;
+    padding: 5px;
 }
