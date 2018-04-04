@@ -5,10 +5,10 @@ function Controller() {
 
 Controller.prototype = {
     addItem: function(item) {
-        var description = $(TASK_INPUT_ID).val();
+        var description = $("#" + TASK_INPUT_ID).val();
         if (_.isEmpty(description)) return;
 
-        $(TASK_INPUT_ID).val("");
+        $("#" + TASK_INPUT_ID).val("");
 
         var todo = new Todo(guid(), new Date().toDateString(), description);
 

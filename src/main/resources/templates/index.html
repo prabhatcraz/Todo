@@ -1,32 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3 ">
 
 <head>
     <title>Todo</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="scripts/lib/underscore-min.js"></script>
-    <script type="text/javascript" src="scripts/constants.js"></script>
-    <script type="text/javascript" src="scripts/store.js"></script>
-    <script type="text/javascript" src="scripts/item.js"></script>
-    <script type="text/javascript" src="scripts/card.js"></script>
-    <script type="text/javascript" src="scripts/page.js"></script>
-    <script type="text/javascript" src="scripts/controller.js"></script>
-    <script type="text/javascript" src="scripts/code.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
-    <!-- <link rel="stylesheet" type="text/css" href="checkboxes.css"/> -->
-    
-    <style type="text/css">
-        @import url("styles/style.css");
-        @import url("styles/responsive.css");
+    <!--<script src="https://unpkg.com/react@15/dist/react.js"></script>-->
+    <!--<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>-->
 
-    </style>
+    <script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/store.js"></script>
+    <script type="text/javascript" src="js/item.js"></script>
+    <script type="text/javascript" src="js/card.js"></script>
+    <script type="text/javascript" src="js/page.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/darkSkin.css"/>
+    <link rel="stylesheet" type="text/css" href="css/responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/whiteSkin.css"/>
 </head>
 
 <body>
-    <script type="text/script" id="todoRow">
+<script type="text/script" id="todoRow">
         <tr>
             <td>
-                <input data-id="<%= id %>" type="checkbox" class="slideOne markDone" <%= checked %> />
+                <input data-id="<%= id %>" type="checkbox" class="custom-control-input slideOne markDone" <%= checked %> />
             </td>
             <td class="description <%= statusClass %>">
                 <%= description %>
@@ -35,9 +41,10 @@
                 <button data-id="<%= id %>" type="button" class="close" data-dismiss="alert">&times;</button>
             </td>
         </tr>
-    </script>
 
-    <script type="text/script" id="todoImmutable">
+</script>
+
+<script type="text/script" id="todoImmutable">
         <tr>
             <td class="description <%= statusClass %>">
                 <%= description %>
@@ -45,28 +52,35 @@
         </tr>
         <tr>
             <td class="taskDate">
-                <%= taskDate %> 
+                <%= taskDate %>
             </td>
         </tr>
-    </script>
-    
-    <script type="text/script" id="cardTemplate">
-       <div id="<%= id %>" class="card box">
-            <h3 class="box-header centre red "><%= title %></h3>
-            <table class="box-body cardBody">
-            </table>
-        </div>
-    </script>
 
-    <div>
-        <h1 class="header shadow">My Todos</h1>
+</script>
 
-        <div class="taskInputWrapper">
-            <input size=100 type="text" placeholder="Today I am going to ..." class="" id="taskInput" autofocus/>
-        </div>
-        <button id="showHistory" onclick="window.controller.toggleShowHistory()">History</button>
+<script type="text/script" id="cardTemplate">
+<div id="<%= id %>" class="card border-dark mb-3" style="max-width: 20rem;" >
+    <div class="card-header"><%= title %></div>
+    <div class="card-body">
+        <table class="box-body cardBody">
+        </table>
     </div>
-    <div id="cardHolder"></div>
+</div>
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">TODOs</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<div class="form-group has-success">
+    <input id="taskInput" class="form-control mr-sm-2" type="text" placeholder="Today I am going to ..." autofocus>
+</div>
+<div id="cardHolder">
+
+</div>
 </body>
 
 </html>

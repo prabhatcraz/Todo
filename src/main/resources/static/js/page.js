@@ -1,8 +1,8 @@
 /* UI and rendering. */
 function PageRenderer(store) {
     this.store = store;
-    var htmlRow = $(TODO_ROW_TEMPLATE_ID).html();
-    this.todoTemplate = _.template($(TODO_ROW_TEMPLATE_ID).html());
+    var htmlRow = $("#" + TODO_ROW_TEMPLATE_ID).html();
+    this.todoTemplate = _.template($("#" + TODO_ROW_TEMPLATE_ID).html());
 }
 
 PageRenderer.prototype = {
@@ -18,7 +18,7 @@ PageRenderer.prototype = {
             this.cards['historyList'] = this.getHistoryCard();
         }
 
-        $(CARD_HOLDER_ID).html("");
+        $("#" + CARD_HOLDER_ID).html("");
 
         _.each(this.cards, function(card) {
             card.render();
@@ -28,7 +28,7 @@ PageRenderer.prototype = {
     getTodaysCard: function() {
         this.todaysList = this.store.getTodaysTodos();
 
-        var todoTemplate = _.template($(TODO_ROW_TEMPLATE_ID).html());
+        var todoTemplate = _.template($("#" + TODO_ROW_TEMPLATE_ID).html());
         var todaysListCard = new Card({
             title: TODAYS_CARD_TITLE,
             items: this.todaysList,
@@ -42,7 +42,7 @@ PageRenderer.prototype = {
 
     getUnfinishedCard: function() {
         var self = this;
-        var todoTemplate = _.template($(TODO_ROW_TEMPLATE_ID).html());
+        var todoTemplate = _.template($("#" + TODO_ROW_TEMPLATE_ID).html());
         var pastListCard = new Card({
             title: PAST_ITEMS_CARD_TITLE,
             items: self.store.getUnfinishedTodos(),
@@ -56,7 +56,7 @@ PageRenderer.prototype = {
 
     getHistoryCard: function() {
         var self = this;
-        var todoTemplate = _.template($(TODO_IMUTABLE_TEMPLATE_ID).html());
+        var todoTemplate = _.template($("#" + TODO_IMUTABLE_TEMPLATE_ID).html());
         var pastListCard = new Card({
             title: TASKS_EVER_COMPLETED_TITLE,
             items: self.store.getAllFinishedTasks(),

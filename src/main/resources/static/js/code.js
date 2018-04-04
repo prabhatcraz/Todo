@@ -8,10 +8,20 @@ var guid = function() {
 
 /* Main */
 $(document).ready(function() {
+    /* Underscore interpolation change.
+     with this change, template variables can be placed within {{ }} instead of default <%= %> of
+     underscore.
+     */
+
+//    _.templateSettings = {
+//        interpolate: /\{\{=(.+?)\}\}/g,
+//        evaluate: /\{\{(.+?)\}\}/g,
+//    };
+
     window.controller = new Controller();
     controller.render();
 
-    $(TASK_INPUT_ID).on('keyup', function(e) {
+    $("#" + TASK_INPUT_ID).on('keyup', function(e) {
         if (e.keyCode == 13) {
             window.controller.addItem();
         }

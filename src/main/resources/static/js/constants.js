@@ -1,8 +1,8 @@
 /* UI element title */
-const TASK_INPUT_ID = "#taskInput";
-const TODO_ROW_TEMPLATE_ID = "#todoRow";
-const TODO_IMUTABLE_TEMPLATE_ID = "#todoImmutable";
-const CARD_HOLDER_ID = "#cardHolder";
+const TASK_INPUT_ID = "taskInput";
+const TODO_ROW_TEMPLATE_ID = "todoRow";
+const TODO_IMUTABLE_TEMPLATE_ID = "todoImmutable";
+const CARD_HOLDER_ID = "cardHolder";
 const TODAYS_LIST_CARD_ID = "todaysList";
 const PAST_LIST_CARD_ID = "pastList";
 const TASKS_EVER_COMPLETED_CARD_ID = "everCompletedList";

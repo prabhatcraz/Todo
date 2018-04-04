@@ -14,7 +14,7 @@ Card.prototype = {
     render: function() {
         var self = this;
         var cardTemplate = _.template($("#" + CARD_TEMPLATE_ID).html());
-        $(CARD_HOLDER_ID).append(cardTemplate({
+        $("#" + CARD_HOLDER_ID).append(cardTemplate({
             id: self.id,
             title: self.title
         }));

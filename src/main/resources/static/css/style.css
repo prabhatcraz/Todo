@@ -110,19 +110,13 @@ input[type=checkbox] {
     /*float: right;*/
 }
 
-#taskInput {
-    margin: 10px;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .description {
     /*width: 100%;*/
     /*display: inline-block;*/
 }
 
-input[type='text'] {
+.input[type='text'] {
     display: block;
     border-radius: 5px;
     /*border-color: red;*/
