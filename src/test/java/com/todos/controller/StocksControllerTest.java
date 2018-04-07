@@ -3,7 +3,6 @@ package com.todos.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todos.dal.TodoRepository;
 import com.todos.exceptions.ResourceNotFoundException;
-import com.todos.exceptions.StockAlreadyExistsException;
 import com.todos.manipulator.TodoService;
 import com.todos.model.ErrorResponse;
 import com.todos.model.Todo;
@@ -41,11 +40,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests {@link StocksController}.
+ * Tests {@link TodoController}.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class StocksControllerTest {
+public class TodoControllerTest {
     private MockMvc mockMvc;
 
     @MockBean private TodoService todoService;
@@ -56,7 +55,7 @@ public class StocksControllerTest {
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new StocksController(todoService))
+                .standaloneSetup(new TodoController(todoService))
                 .setControllerAdvice(new ApiErrorHandler())
                 .build();
     }
@@ -78,7 +77,7 @@ public class StocksControllerTest {
 
     @Test
     public void testPostStock() throws Exception {
-        final Todo todo = new Todo().withPrice(1.23);
+        final Todo todo = new Todo().withId(23L);
         when(todoService.create(any())).thenReturn(todo);
 
         final String requestBody = new ObjectMapper().writeValueAsString(todo);
@@ -186,7 +185,7 @@ public class StocksControllerTest {
         final String errorMessage= "It already exists";
         final Todo todo = new Todo().withPrice(2.3).withSymbol("a symbol").withName("a name");
 
-        when(todoService.create(any(Todo.class))).thenThrow(new StockAlreadyExistsException(errorMessage));
+        when(todoService.create(any(Todo.class))).thenThrow(new TaskkAlreadyExistsException(errorMessage));
 
         final String requestBody = new ObjectMapper().writeValueAsString(todo);
 

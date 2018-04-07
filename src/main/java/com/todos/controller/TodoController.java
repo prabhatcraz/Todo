@@ -39,6 +39,11 @@ public class TodoController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Todo> getByDate(@RequestParam("date") @DateTimeFormat(pattern="MMddyyyy") Date date) {
-        return todoService.getTodosByDate(date);
+        return todoService.getTodosByDate(new Date());
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable final Long id) {
+        todoService.delete(id);
     }
 }

@@ -4,19 +4,13 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.todos.dal.TodoRepository;
 import com.todos.exceptions.ResourceNotFoundException;
-import com.todos.exceptions.StockAlreadyExistsException;
 import com.todos.model.Todo;
-import org.hibernate.exception.ConstraintViolationException;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -104,8 +98,8 @@ public class TodoService {
         todoRepository.save(todos);
     }
 
-    Date atEndOfDay(Date date) {
-        Calendar calendar = Calendar.getInstance();
+    Date atEndOfDay(final Date date) {
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
@@ -114,13 +108,17 @@ public class TodoService {
         return calendar.getTime();
     }
 
-    Date atStartOfDay(Date date) {
-        Calendar calendar = Calendar.getInstance();
+    Date atStartOfDay(final Date date) {
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
+    }
+
+    public void delete(final Long id) {
+        todoRepository.delete(id);
     }
 }

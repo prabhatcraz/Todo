@@ -1,7 +1,6 @@
 package com.todos.controller;
 
 import com.todos.exceptions.ResourceNotFoundException;
-import com.todos.exceptions.StockAlreadyExistsException;
 import com.todos.model.ErrorResponse;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
@@ -31,8 +30,8 @@ public class ApiErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = StockAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleResourceAlreadyExist(final StockAlreadyExistsException ex) {
+    @ExceptionHandler(value = TaskkAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleResourceAlreadyExist(final TaskkAlreadyExistsException ex) {
         final String message = Optional.of(ex.getMessage()).orElse("Resource already exists.");
         final ErrorResponse errorResponse = new ErrorResponse("409", message);
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);

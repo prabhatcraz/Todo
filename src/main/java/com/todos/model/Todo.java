@@ -17,6 +17,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import java.util.Date;
@@ -57,13 +58,10 @@ public class Todo {
     @Column(name = "state")
     private State state;
 
-    @LastModifiedDate
-    @Temporal(TIMESTAMP)
-    @Column(name = "lastUpdated", nullable = false)
-    private Date lastUpdateDate;
-
-    @CreatedDate
-    @Column(name="creationDate", nullable = false, updatable=false)
-    @Temporal(TIMESTAMP)
     private Date creationDate;
+
+    @PrePersist
+    protected void onCreate() {
+        creationDate = new Date();
+    }
 }

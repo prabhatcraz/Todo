@@ -6,6 +6,22 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: "jacoco"
 
+buildscript {
+    repositories {
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+    }
+}
+
+configure(allprojects) {
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+    apply plugin: 'propdeps-eclipse'
+}
+
 sourceCompatibility = 1.8
 
 
@@ -71,7 +87,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.h2database/h2
     compile group: 'com.h2database', name: 'h2', version: '1.0.60'
-//    compile 'org.slf4j:slf4j-log4j12:1.7.18'
+
     compile ("net.sourceforge.nekohtml:nekohtml:1.9.21")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
