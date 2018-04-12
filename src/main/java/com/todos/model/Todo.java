@@ -14,6 +14,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,6 +59,10 @@ public class Todo {
 
     @Column(name = "state")
     private State state;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "importance")
+    private Importance importance;
 
     private Date creationDate;
 
